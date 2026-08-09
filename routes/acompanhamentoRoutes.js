@@ -1,0 +1,12 @@
+const express = require('express');
+const router = express.Router();
+const { hasPermission } = require('../middleware/rbac');
+const ctrl = require('../controllers/acompanhamentoController');
+
+router.get('/', hasPermission('acompanhamentos:read'), ctrl.listar);
+router.get('/:id', hasPermission('acompanhamentos:read'), ctrl.buscar);
+router.post('/', hasPermission('acompanhamentos:write'), ctrl.criar);
+router.put('/:id', hasPermission('acompanhamentos:write'), ctrl.atualizar);
+router.delete('/:id', hasPermission('acompanhamentos:write'), ctrl.remover);
+
+module.exports = router;

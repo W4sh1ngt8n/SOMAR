@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+const { hasPermission } = require('../middleware/rbac');
+const ctrl = require('../controllers/usuarioController');
+
+router.get('/', hasPermission('usuarios:read'), ctrl.listar);
+router.get('/:id', hasPermission('usuarios:read'), ctrl.buscar);
+router.post('/', hasPermission('usuarios:write'), ctrl.criar);
+router.put('/:id', hasPermission('usuarios:write'), ctrl.atualizar);
+router.patch('/:id/senha', hasPermission('usuarios:write'), ctrl.alterarSenha);
+router.delete('/:id', hasPermission('usuarios:write'), ctrl.remover);
+
+module.exports = router;

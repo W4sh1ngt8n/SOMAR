@@ -1,0 +1,17 @@
+const express = require('express');
+const router = express.Router();
+const { authenticate } = require('../middleware/auth');
+router.use('/auth', require('./authRoutes'));
+router.use('/dashboard', authenticate, require('./dashboardRoutes'));
+router.use('/usuarios', authenticate, require('./usuarioRoutes'));
+router.use('/pacientes', authenticate, require('./pacienteRoutes'));
+router.use('/pre-cadastros', authenticate, require('./preCadastroRoutes'));
+router.use('/acompanhamentos', authenticate, require('./acompanhamentoRoutes'));
+router.use('/beneficios', authenticate, require('./beneficioRoutes'));
+router.use('/requisicoes', authenticate, require('./requisicaoRoutes'));
+router.use('/documentos', authenticate, require('./documentoRoutes'));
+router.use('/patologias', authenticate, require('./patologiaRoutes'));
+router.use('/medicamentos', authenticate, require('./medicamentoRoutes'));
+router.use('/relatorios', authenticate, require('./relatorioRoutes'));
+router.use('/backup', authenticate, require('./backupRoutes'));
+module.exports = router;

@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const { hasPermission } = require('../middleware/rbac');
+const ctrl = require('../controllers/pacienteController');
+router.get('/', hasPermission('pacientes:read'), ctrl.listar);
+router.get('/:id', hasPermission('pacientes:read'), ctrl.buscar);
+router.get('/:id/historico', hasPermission('pacientes:read'), ctrl.historico);
+router.post('/', hasPermission('pacientes:write'), ctrl.criar);
+router.put('/:id', hasPermission('pacientes:write'), ctrl.atualizar);
+router.patch('/:id/status', hasPermission('pacientes:write'), ctrl.alterarStatus);
+module.exports = router;

@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+const { hasPermission } = require('../middleware/rbac');
+const ctrl = require('../controllers/preCadastroController');
+
+router.get('/', hasPermission('pacientes:read'), ctrl.listar);
+router.get('/:id', hasPermission('pacientes:read'), ctrl.buscar);
+router.post('/', hasPermission('pacientes:write'), ctrl.criar);
+router.put('/:id', hasPermission('pacientes:write'), ctrl.atualizar);
+router.patch('/:id/validar', hasPermission('pacientes:write'), ctrl.validar);
+router.post('/:id/converter', hasPermission('pacientes:write'), ctrl.converter);
+
+module.exports = router;

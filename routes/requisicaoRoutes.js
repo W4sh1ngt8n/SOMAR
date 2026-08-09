@@ -1,0 +1,14 @@
+const express = require('express');
+const router = express.Router();
+const { hasPermission } = require('../middleware/rbac');
+const ctrl = require('../controllers/requisicaoController');
+
+router.get('/', hasPermission('requisicoes:read'), ctrl.listar);
+router.get('/:id', hasPermission('requisicoes:read'), ctrl.buscar);
+router.post('/', hasPermission('requisicoes:write'), ctrl.criar);
+router.patch('/:id/aprovar', hasPermission('requisicoes:approve'), ctrl.aprovar);
+router.patch('/:id/negar', hasPermission('requisicoes:approve'), ctrl.negar);
+router.patch('/:id/entregar', hasPermission('requisicoes:approve'), ctrl.entregar);
+router.get('/:id/comprovante-pdf', hasPermission('relatorios:generate'), ctrl.comprovantePdf);
+
+module.exports = router;
